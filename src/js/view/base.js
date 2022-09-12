@@ -12,7 +12,7 @@ export const elementStrings = {
 
 export const clearLoader = () => {
   const loader = document.querySelector(`.${elementStrings.loader}`);
-  // loader dotor utaga bga esehiig shalgaj bn. Daraa parentiig n olj bn. Tgd parentaasee loader classtai diviig ustgaj bn.
+  // loader dotor utaga bga esehiig shalgaj bn. Дараа parentiig n olj bn. Tgd parentaasee loader classtai diviig ustgaj bn.
   if (loader) {
     loader.parentElement.removeChild(loader);
   }
