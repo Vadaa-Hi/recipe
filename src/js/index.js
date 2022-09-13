@@ -38,5 +38,21 @@ elements.pageButtons.addEventListener('click', (e) => {
   }
 });
 
-const r = new Recipe(47746);
-r.getRecipe();
+// Жорын контроллер
+
+const controlRecipe = async () => {
+  // 1. URL-aas ID-g salgah
+  const id = window.location.hash.replace('#', '');
+  // 2. Joriin modeliig uusgeh
+  state.recipe = new Recipe(id);
+  // 3. UI delgetsiig beltgene.
+  // 4. Joroo tataj avchirna
+  await state.recipe.getRecipe();
+  // 5. Joriig guitsetgeh hugatsaa bln ortsiig tootsoolno
+  state.recipe.calcTime();
+  state.recipe.calcHuniiToo();
+
+  // 6. Joroo delgetsend gargana.
+  console.log(state.recipe);
+};
+window.addEventListener('hashchange', controlRecipe);

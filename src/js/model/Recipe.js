@@ -18,4 +18,11 @@ export default class Recipe {
     console.log(result);
     console.log(this.title);
   }
+  calcTime() {
+    this.time = this.ingredients.length * 5;
+  }
+
+  calcHuniiToo() {
+    this.huniiToo = 4;
+  }
 }
