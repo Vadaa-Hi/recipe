@@ -15,7 +15,7 @@ const renderRecipe = (recipe) => {
                         </a>
                     </li>
                 `;
-  // ul ruugee nemne
+  // ul ruugee нэмнэ
   elements.searchResultList.insertAdjacentHTML('beforeend', markup);
 };
 export const clearSearchQuery = () => {
