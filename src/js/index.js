@@ -14,6 +14,8 @@ import Like from './model/Like';
 import * as likesView from './view/likesView';
 
 const state = {};
+// like tsesiig haah
+likesView.toggleLikeMenu(0);
 
 const controlSearch = async () => {
   // 1. Web search key gargaj avna
@@ -118,6 +120,7 @@ const controlLike = () => {
     );
     likesView.toggleLikeBtn(true);
   }
+  likesView.toggleLikeMenu(state.likes.getNumberOfLikes());
 };
 
 elements.recipeDiv.addEventListener('click', (e) => {
