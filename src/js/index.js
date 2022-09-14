@@ -3,6 +3,7 @@ import Search from './model/Search';
 import { elements, renderLoader, clearLoader } from './view/base';
 import * as searchView from './view/SearchView';
 import Recipe from './model/Recipe';
+import { renderRecipe, clearRecipe } from './view/recipeView';
 
 const state = {};
 
@@ -46,13 +47,17 @@ const controlRecipe = async () => {
   // 2. Joriin modeliig uusgeh
   state.recipe = new Recipe(id);
   // 3. UI delgetsiig beltgene.
+  clearRecipe();
+  renderLoader(elements.recipeDiv);
   // 4. Joroo tataj avchirna
   await state.recipe.getRecipe();
   // 5. Joriig guitsetgeh hugatsaa bln ortsiig tootsoolno
+  clearLoader();
   state.recipe.calcTime();
   state.recipe.calcHuniiToo();
 
   // 6. Joroo delgetsend gargana.
-  console.log(state.recipe);
+  renderRecipe(state.recipe);
 };
 window.addEventListener('hashchange', controlRecipe);
+window.addEventListener('load', controlRecipe);
