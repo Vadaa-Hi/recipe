@@ -21,7 +21,7 @@ export default class Likes {
     const index = this.likes.findIndex((el) => el.id === id);
     // Ug index deerh elementiig massive aas ustgana
     this.likes.splice(index, 1);
-    this.saveDataToLocalStorage;
+    this.saveDataToLocalStorage();
   }
 
   isLiked(id) {
