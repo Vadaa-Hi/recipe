@@ -109,15 +109,21 @@ const controlLike = () => {
   if (state.likes.isLiked(currentRecipeId)) {
     // 4. Like darsan bol boliulah
     state.likes.deleteLike(currentRecipeId);
+    // like iin listnees ustgah
+    likesView.deleteLike(currentRecipeId);
+    // Like btn likelasan bdaliig boliulah
     likesView.toggleLikeBtn(false);
   } else {
     // 5. Like daraagvi bol like darna
-    state.likes.addLike(
+    const newLike = state.likes.addLike(
       currentRecipeId,
       state.recipe.publisher,
       state.recipe.title,
       state.recipe.image_url
     );
+    // like listend new like iig oruulah
+    likesView.renderLike(newLike);
+    // Like btn like darsan bolgoh
     likesView.toggleLikeBtn(true);
   }
   likesView.toggleLikeMenu(state.likes.getNumberOfLikes());

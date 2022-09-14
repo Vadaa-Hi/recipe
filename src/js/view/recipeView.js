@@ -14,8 +14,8 @@ const renderNairlaga = (orts) => `
 export const highlightSelectedRecipe = (id) => {
   const arr = Array.from(document.querySelectorAll('.results__link'));
   arr.forEach((el) => el.classList.remove('results__link--active'));
-
-  const domObj = document.querySelector(`a[href*="${id}"]`);
+  // results__link gdg classaar n haidag bolgoloo. Omno n a tagaar n haidag bsn. Oor tagtai davhardah geed bga uchraas boliv
+  const domObj = document.querySelector(`.results__link[href*="${id}"]`);
   if (domObj) domObj.classList.add('results__link--active');
 };
 
