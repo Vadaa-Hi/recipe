@@ -3,7 +3,11 @@ import Search from './model/Search';
 import { elements, renderLoader, clearLoader } from './view/base';
 import * as searchView from './view/SearchView';
 import Recipe from './model/Recipe';
-import { renderRecipe, clearRecipe } from './view/recipeView';
+import {
+  renderRecipe,
+  clearRecipe,
+  highlightSelectedRecipe,
+} from './view/recipeView';
 
 const state = {};
 
@@ -49,6 +53,7 @@ const controlRecipe = async () => {
   // 3. UI delgetsiig beltgene.
   clearRecipe();
   renderLoader(elements.recipeDiv);
+  highlightSelectedRecipe(id);
   // 4. Joroo tataj avchirna
   await state.recipe.getRecipe();
   // 5. Joriig guitsetgeh hugatsaa bln ortsiig tootsoolno
