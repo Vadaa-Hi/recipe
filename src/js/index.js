@@ -10,6 +10,7 @@ import {
 } from './view/recipeView';
 import List from './model/List';
 import * as listView from './view/listView';
+import Like from './model/Like';
 
 const state = {};
 
@@ -93,9 +94,33 @@ const controlList = () => {
     listView.renderItem(item);
   });
 };
+
+// Like controller
+const controlLike = () => {
+  //1. Like iin modeliig uusgene
+  if (!state.likes) state.likes = new Like();
+  // 2. Odoo haragdaj bga joriiin ID-g olj avah
+  const currentRecipeId = state.recipe.id;
+  // 3. ene joriig like darsan eseh
+  if (state.likes.isLiked(currentRecipeId)) {
+    // 4. Like darsan bol boliulah
+    state.likes.deleteLike(currentRecipeId);
+  } else {
+    // 5. Like daraagvi bol like darna
+    state.likes.addItem(
+      currentRecipeId,
+      state.recipe.publisher,
+      state.recipe.title,
+      state.recipe.image_url
+    );
+  }
+};
+
 elements.recipeDiv.addEventListener('click', (e) => {
   if (e.target.matches('.recipe__btn, .recipe__btn *')) {
     controlList();
+  } else if (e.target.matches('.recipe__love, .recipe__love *')) {
+    controlLike();
   }
 });
 
