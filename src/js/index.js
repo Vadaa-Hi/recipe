@@ -8,6 +8,8 @@ import {
   clearRecipe,
   highlightSelectedRecipe,
 } from './view/recipeView';
+import List from './model/List';
+import * as listView from './view/listView';
 
 const state = {};
 
@@ -48,21 +50,51 @@ elements.pageButtons.addEventListener('click', (e) => {
 const controlRecipe = async () => {
   // 1. URL-aas ID-g salgah
   const id = window.location.hash.replace('#', '');
-  // 2. Joriin modeliig uusgeh
-  state.recipe = new Recipe(id);
-  // 3. UI delgetsiig beltgene.
-  clearRecipe();
-  renderLoader(elements.recipeDiv);
-  highlightSelectedRecipe(id);
-  // 4. Joroo tataj avchirna
-  await state.recipe.getRecipe();
-  // 5. Joriig guitsetgeh hugatsaa bln ortsiig tootsoolno
-  clearLoader();
-  state.recipe.calcTime();
-  state.recipe.calcHuniiToo();
+  // URL deer ID bgaa esehiig shalgana
+  if (id) {
+    // 2. Joriin modeliig uusgeh
+    state.recipe = new Recipe(id);
+    // 3. UI delgetsiig beltgene.
+    clearRecipe();
+    renderLoader(elements.recipeDiv);
+    highlightSelectedRecipe(id);
+    // 4. Joroo tataj avchirna
+    await state.recipe.getRecipe();
+    // 5. Joriig guitsetgeh hugatsaa bln ortsiig tootsoolno
+    clearLoader();
+    state.recipe.calcTime();
+    state.recipe.calcHuniiToo();
 
-  // 6. Joroo delgetsend gargana.
-  renderRecipe(state.recipe);
+    // 6. Joroo delgetsend gargana.
+    renderRecipe(state.recipe);
+  }
 };
-window.addEventListener('hashchange', controlRecipe);
-window.addEventListener('load', controlRecipe);
+
+// window.addEventListener('hashchange', controlRecipe);
+// window.addEventListener('load', controlRecipe);
+
+// deerh codiiin bichigleliig hemnej bn
+['hashchange', 'load'].forEach((e) =>
+  window.addEventListener(e, controlRecipe)
+);
+
+// Nairlaganii controller
+
+const controlList = () => {
+  // 1. nairlaganii modeliig uusgene
+  state.list = new List();
+  //Omno haragdaj bsn nairlaguudiig delgetsees zailuulna
+  listView.clearItems();
+  // 2. ug model ruu odoo haragdaj bgaa jornii buh nairlagiig avch hiine.
+  state.recipe.ingredients.forEach((n) => {
+    // Tuhain nairlagiig model ruu hiine
+    state.list.addItem(n);
+    // Tuhain nairlagiig delgetsend gargana.
+    listView.renderItem(n);
+  });
+};
+elements.recipeDiv.addEventListener('click', (e) => {
+  if (e.target.matches('.recipe__btn, .recipe__btn *')) {
+    controlList();
+  }
+});
