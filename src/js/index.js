@@ -105,14 +105,16 @@ const controlLike = () => {
   if (state.likes.isLiked(currentRecipeId)) {
     // 4. Like darsan bol boliulah
     state.likes.deleteLike(currentRecipeId);
+    console.log(state.likes);
   } else {
     // 5. Like daraagvi bol like darna
-    state.likes.addItem(
+    state.likes.addLike(
       currentRecipeId,
       state.recipe.publisher,
       state.recipe.title,
       state.recipe.image_url
     );
+    console.log(state.likes);
   }
 };
 
