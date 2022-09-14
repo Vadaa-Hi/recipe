@@ -14,8 +14,6 @@ import Like from './model/Like';
 import * as likesView from './view/likesView';
 
 const state = {};
-// like tsesiig haah
-likesView.toggleLikeMenu(0);
 
 const controlSearch = async () => {
   // 1. Web search key gargaj avna
@@ -54,7 +52,6 @@ elements.pageButtons.addEventListener('click', (e) => {
 const controlRecipe = async () => {
   // 1. URL-aas ID-g salgah
   const id = window.location.hash.replace('#', '');
-  if (!state.likes) state.likes = new Like();
   // URL deer ID bgaa esehiig shalgana
   if (id) {
     // 2. Joriin modeliig uusgeh
@@ -82,6 +79,15 @@ const controlRecipe = async () => {
 ['hashchange', 'load'].forEach((e) =>
   window.addEventListener(e, controlRecipe)
 );
+
+window.addEventListener('load', (e) => {
+  // Shineer like modeliig app achaallahad uusgene.
+  if (!state.likes) state.likes = new Like();
+  // like tsesiig gargah esehiig shiideh
+  likesView.toggleLikeMenu(state.likes.getNumberOfLikes());
+  //Likes bval tedgeeriig tsesend nemj haruulna
+  state.likes.likes.forEach((like) => likesView.renderLike(like));
+});
 
 // Nairlaganii controller
 
