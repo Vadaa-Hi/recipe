@@ -11,6 +11,7 @@ import {
 import List from './model/List';
 import * as listView from './view/listView';
 import Like from './model/Like';
+import * as likesView from './view/likesView';
 
 const state = {};
 
@@ -51,6 +52,7 @@ elements.pageButtons.addEventListener('click', (e) => {
 const controlRecipe = async () => {
   // 1. URL-aas ID-g salgah
   const id = window.location.hash.replace('#', '');
+  if (!state.likes) state.likes = new Like();
   // URL deer ID bgaa esehiig shalgana
   if (id) {
     // 2. Joriin modeliig uusgeh
@@ -67,7 +69,7 @@ const controlRecipe = async () => {
     state.recipe.calcHuniiToo();
 
     // 6. Joroo delgetsend gargana.
-    renderRecipe(state.recipe);
+    renderRecipe(state.recipe, state.likes.isLiked(id));
   }
 };
 
@@ -105,7 +107,7 @@ const controlLike = () => {
   if (state.likes.isLiked(currentRecipeId)) {
     // 4. Like darsan bol boliulah
     state.likes.deleteLike(currentRecipeId);
-    console.log(state.likes);
+    likesView.toggleLikeBtn(false);
   } else {
     // 5. Like daraagvi bol like darna
     state.likes.addLike(
@@ -114,7 +116,7 @@ const controlLike = () => {
       state.recipe.title,
       state.recipe.image_url
     );
-    console.log(state.likes);
+    likesView.toggleLikeBtn(true);
   }
 };
 
